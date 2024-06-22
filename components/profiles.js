@@ -56,10 +56,11 @@ const styles = StyleSheet.create({
     profiles: {
       top: 10,
       right: 0,
-      left: 20
+      left: 40
     },
     texts: {
-        top: 12
+        top: 12,
+        left: 15
     },
     searchContainer: {
         left: 150,
