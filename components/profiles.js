@@ -4,7 +4,8 @@ import React from 'react';
 
 function Profiles() {
   return (
-    <View style={styles.devProfile}>
+    <View style={styles.container}>
+      <View style={styles.devProfile}>
         <View style={styles.profiles}>
             <Image source={require('../assets/profile.png')} style={styles.profile} />
         </View>
@@ -14,6 +15,7 @@ function Profiles() {
         </View>
         <View style={styles.searchContainer}>
         <Image source={require('../assets/search.png')} style={styles.searchImage} />
+        </View>
       </View>
     </View>
   )
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
+      width: 350
     },
     contentContainer: {
       alignItems: 'center',
@@ -35,7 +38,6 @@ const styles = StyleSheet.create({
       height: 52,
       marginVertical: 50, // equivalent to gap
       top: 10,
-      left: 30,
       marginLeft: 5
     },
     name: {

@@ -38,19 +38,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
     searchImage: {
-        width: 24,
-        height: 30,
-        top: 18
-        
+        top: 18   
     } ,
     searchBox: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginLeft: 150,
-        top: 5
+        top: 5,
+        width: '85%'
     },
     textType : {
-        top: 25
+        marginTop: 35
     }
 });
 

@@ -10,7 +10,9 @@ function Cards() {
 }
 
 const styles = StyleSheet.create({
-    
+    cards: {
+      
+    }
   });
   
 export default Cards
