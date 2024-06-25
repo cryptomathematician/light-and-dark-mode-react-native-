@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Switch } from 'react-native';
 
 const MyCardsScreen = () => {
   return (

@@ -1,72 +1,93 @@
-import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, Image, TextInput, FlatList, Button } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import HomeScreen from './HomeScreen';
 import Settings from './Settings';
 import MyCardsScreen from './MyCardsScreen';
 import StatisticsScreen from './StatisticsScreen';
+import { ThemeProvider, useTheme } from './contexts/ThemeContext'; // Adjust the path as necessary
 
 const Tab = createBottomTabNavigator();
-const screenOptions ={
-  tabBarShowLabel: false,
-  headerShown: false,
-  tabBarStyle: {
-    position:"absolute",
-    bottom: 0,
-    elevation: 0,
-    backgroundColor: "fff"
-}
-}
-export default function App() {
+
+function App() {
+  const { isDarkMode } = useTheme();
+
+  const screenOptions = {
+    tabBarShowLabel: false,
+    headerShown: false,
+    tabBarStyle: {
+      position: "absolute",
+      bottom: 0,
+      elevation: 0,
+      backgroundColor: isDarkMode ? "#121212" : "#fff", // Change background color based on theme
+    }
+  };
+
   return (
-     <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOptions} initialRouteName="Home" style={styles.Tab}>
-          <Tab.Screen name="Home" component ={HomeScreen} style={styles.Tabs}
-           options={{
-            tabBarIcon: ({focused}) =>(<View style={styles.center}>
-              <Image source={require('./assets/home.png')} />
-              <Text>Home</Text>
-            </View>
-          )
-           }}/>
-          <Tab.Screen name="MyCards" component ={MyCardsScreen} 
-            options={{
-            tabBarIcon: ({focused}) =>(<View style={styles.center}>
-              <Image source={require('./assets/myCards.png')} />
-              <Text>My Cards</Text>
-            </View>
-          )
-            }}
-          />
-          <Tab.Screen name="Statistics" component ={StatisticsScreen} 
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={screenOptions} initialRouteName="Home" style={styles.Tab}>
+        <Tab.Screen name="Home" component={HomeScreen}
           options={{
-          tabBarIcon: ({focused}) =>(<View style={styles.center}>
-            <Image source={require('./assets/statictics.png')} />
-            <Text>Statistics</Text>
-          </View>
-          )
-          }}
-          />
-          <Tab.Screen name="Settings" component ={Settings} 
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.center}>
+                <View style={styles.iconContainer}>
+                  <Image source={require('./assets/home.png')} style={styles.icon} />
+                </View>
+                <Text style={[styles.iconText, { color: isDarkMode ? '#fff' : '#000' }]}>Home</Text>
+              </View>
+            )
+          }} />
+        <Tab.Screen name="MyCards" component={MyCardsScreen}
           options={{
-          tabBarIcon: ({focused}) =>(<View style={styles.center}>
-            <Image source={require('./assets/settings.png')} />
-            <Text>Settings</Text>
-          </View>
-        )
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.center}>
+                <View style={styles.iconContainer}>
+                  <Image source={require('./assets/myCards.png')} style={styles.icon} />
+                </View>
+                <Text style={[styles.iconText, { color: isDarkMode ? '#fff' : '#000' }]}>My Cards</Text>
+              </View>
+            )
           }}
-          />
-        </Tab.Navigator>
-     </NavigationContainer>
+        />
+        <Tab.Screen name="Statistics" component={StatisticsScreen}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.center}>
+                <View style={styles.iconContainer}>
+                  <Image source={require('./assets/statictics.png')} style={styles.icon} />
+                </View>
+                <Text style={[styles.iconText, { color: isDarkMode ? '#fff' : '#000' }]}>Statistics</Text>
+              </View>
+            )
+          }}
+        />
+        <Tab.Screen name="Settings" component={Settings}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.center}>
+                <View style={styles.iconContainer}>
+                  <Image source={require('./assets/settings.png')} style={styles.icon} />
+                </View>
+                <Text style={[styles.iconText, { color: isDarkMode ? '#fff' : '#000' }]}>Settings</Text>
+              </View>
+            )
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default function MainApp() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   contentContainer: {
     alignItems: 'center',
     paddingBottom: 40,
@@ -78,6 +99,15 @@ const styles = StyleSheet.create({
   center: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  iconText: {
+    marginTop: 4,
+    fontSize: 12,
   }
 });
 

@@ -1,18 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TextInput, FlatList, Button } from 'react-native';
+import { useTheme } from './contexts/ThemeContext';  // Import the custom hook
 import Profiles from './components/profiles';
 import Cards from './components/cards';
 import Payments from './components/payments';
 import Transactions from './components/transactions';
 
-export default function HomScreen() {
+export default function HomeScreen() {
+  const { isDarkMode } = useTheme();  // Use the context
+
+  const containerStyle = {
+    flex: 1,
+    backgroundColor: isDarkMode ? '#000' : '#fff',
+  };
+
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} >
-       <Profiles />
-       <Cards />
-       <Payments/>
-       <Transactions/>
-    </ScrollView>
+    <View style={containerStyle}>
+      <Profiles  isDarkMode={isDarkMode} />
+      <Cards  isDarkMode={isDarkMode} />
+      <Payments isDarkMode={isDarkMode} />
+      <Transactions isDarkMode={isDarkMode} />
+    </View>
   );
 }
 

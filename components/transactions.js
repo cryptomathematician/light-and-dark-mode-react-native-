@@ -1,37 +1,69 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 
-function Transactions() {
+const Transactions = ({ isDarkMode }) => {
   const images = [
-    { src: require('../assets/apple.png'), job: 'Apple Store', company: 'Entertainment', salary: "-$5,99", backgroundColor: '#fff' },
-    { src: require('../assets/spotify.png'), job: 'Spotify', company: 'Music', salary: "-$12,99", backgroundColor: '#fff' },
-    { src: require('../assets/moneyTransfer.png'), job: 'Money Transfer', company: 'Transaction', salary: "$300", backgroundColor: '#fff' },
-    { src: require('../assets/grocery.png'), job: 'Grocery', company: 'Food Store', salary: "$88", backgroundColor: '#fff' },
+    { src: require('../assets/apple.png'), job: 'Apple Store', company: 'Entertainment', salary: "-$5,99" },
+    { src: require('../assets/spotify.png'), job: 'Spotify', company: 'Music', salary: "-$12,99" },
+    { src: require('../assets/moneyTransfer.png'), job: 'Money Transfer', company: 'Transaction', salary: "$300" },
+    { src: require('../assets/grocery.png'), job: 'Grocery', company: 'Food Store', salary: "$88" },
     // Add more images as needed
   ];
 
+  const containerStyle = {
+    ...styles.container,
+    backgroundColor: isDarkMode ? '#000' : '#fff',
+    bottom: 50
+  };
+
+  const textStyle = {
+    color: isDarkMode ? '#fff' : '#000',
+  };
+
+  const footerTextStyle = {
+    ...styles.footerText,
+    color: isDarkMode ? '#fff' : '#000',
+  };
+
+  const footerLinkStyle = {
+    ...styles.footerLink,
+    color: isDarkMode ? 'blue' : 'blue',
+  };
+  
+  const smallContainerStyle = {
+    ...styles.smallContainer,
+    backgroundColor: isDarkMode ? '#121212' : '#fff',
+  };
+  
+
+  const imageContainerStyle = {
+    ...styles.imageContainer,
+    backgroundColor: isDarkMode ? '#000' : '#fff',
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={containerStyle}>
       <View style={styles.footerContainer}>
-        <Text style={styles.footerText}>Transactions</Text>
-        <Text style={styles.footerLink}>See all</Text>
+        <Text style={footerTextStyle}>Transactions</Text>
+        <Text style={footerLinkStyle}>See all</Text>
       </View>
       <FlatList
         data={images}
         renderItem={({ item }) => (
-          <View style={[styles.imageContainer, { backgroundColor: item.backgroundColor }]}>
-            <View style={styles.smallContainer}>
+          <View style={imageContainerStyle}>
+            <View style={smallContainerStyle}>
               <Image source={item.src} style={styles.categoryImage} />
             </View>
             <View style={styles.textContainer}>
               <View style={styles.texts}>
-                <Text style={styles.imageText}>{item.job}</Text>
-                <Text style={styles.imageTask}>{item.company}</Text>
+                <Text style={[styles.imageText, textStyle]}>{item.job}</Text>
+                <Text style={[styles.imageTask, textStyle]}>{item.company}</Text>
               </View>
               <View style={styles.locationSalaryContainer}>
                 <Text 
                     style={[
                       styles.imageSalary, 
+                      textStyle, 
                       item.salary === "$300" && styles.blueText
                     ]}
                  >
@@ -43,7 +75,7 @@ function Transactions() {
         )}
         keyExtractor={(item, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.contentContainer}
+        contentContainerStyle={{ paddingBottom:0}}
       />
     </View>
   )
@@ -52,34 +84,32 @@ function Transactions() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: 40,
-    width: 450
+    width: 450,
+    bottom: 0,
   },
   footerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 50,
-    marginVertical: 20,
+    marginVertical: 10,
   },
   footerText: {
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   footerLink: {
-    fontSize: 14,
-    color: 'blue',
-    fontWeight: 'bold'
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   imageContainer: {
     flexDirection: 'row',
     borderRadius: 24,
-    padding: 10,
+    padding: 0,
     width: '90%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 5,
+    marginVertical: 2,
     alignSelf: 'center',
-    marginBottom: 10,
     fontWeight: 'bold'
   },
   textContainer: {
@@ -102,25 +132,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
     left: 110,
-    top: -40
+    top: -40,
   },
   texts: {
     paddingTop: 10,
-    paddingLeft: 15
+    paddingLeft: 15,
   },
   categoryImage: {
-    top: 18
+    top: 18,
   },
   blueText: {
-    color: 'blue'
+    color: 'blue',
   },
   smallContainer: {
     width: 60,
     height: 60,
     borderRadius: 30,
     backgroundColor: '#f0f0f0',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 
 export default Transactions;
